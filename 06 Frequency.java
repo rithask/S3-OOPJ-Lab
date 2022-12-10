@@ -1,6 +1,6 @@
 /*
  * Write a Java Program to find the frequency of a given character in a string.
- * 
+
  * ALGORITHM
  * 1. Start
  * 2. Initialize a string variable, a character variable, and an integer variable

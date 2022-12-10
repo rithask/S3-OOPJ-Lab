@@ -15,6 +15,7 @@
  * 11. Else, print "Not a palindrome"
  * 12. Stop
  */
+
 import java.util.Scanner;
 
 public class Palindrome {
