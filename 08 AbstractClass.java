@@ -14,8 +14,9 @@
  * 
  * Algorithm for the Shape class
  * 1. Start
- * 2. Declare a method numberOfSides()
- * 3. Stop
+ * 2. Create an abstract class named Shape
+ * 3. Create an abstract method named numberOfSides()
+ * 4. Stop
  * 
  * Algorithm for the Rectangle class
  * 1. Start
@@ -51,8 +52,8 @@ public class AbstractClass {
     }
 }
 
-class Shape {
-    public void numberOfSides() {}
+abstract class Shape {
+    abstract void numberOfSides();
 }
 
 class Rectangle extends Shape {
