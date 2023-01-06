@@ -6,129 +6,150 @@
  * 
  * ALGORITHM
  * 
- * Algorithm for push
- * 1. Create a new node.
- * 2. Set the data of the new node to the data passed as argument.
- * 3. Set the next of the new node to the head.
- * 4. Set the previous of the new node to null.
- * 5. If the head is not null, set the previous of the head to the new node.
- * 6. Set the head to the new node.
- * 7. Stop
+ * 1. Start
+ * 2. Create a doubly linked list.
+ * 3. Create a scanner object.
+ * 4. Repeat the following steps until the user enters 4.
+ * 5. Display a menu
+ * 6. Read the choice
+ * 7. If the choice is 1, insert an element.
+ * 8. Else if the choice is 2, delete an element.
+ * 9. Else if the choice is 3, display the list.
+ * 10. Else if the choice is 4, exit.
+ * 11. Else, display "Invalid choice".
+ * 12. Stop
+ * 
+ * Algorithm for insert
+ * 1. Start
+ * 2. Create a node new_node and set it to the new node.
+ * 3. If the head is null, set the head to the new_node.
+ * 4. Else, set the temp to the head.
+ * 5. While the next of the temp is not null, set the temp to the next of the temp.
+ * 6. Set the next of the temp to the new_node.
+ * 7. Set the previous of the new_node to the temp.
+ * 8. Stop
  * 
  * Algorithm for deleting a node
- * 1. If the head is null or the node to be deleted is null, stop.
- * 2. If the head is the node to be deleted, set the head to the next of the head.
- * 3. Set the previous of the next of the node to be deleted to the previous of the node to be deleted.
- * 4. Set the next of the previous of the node to be deleted to the next of the node to be deleted.
- * 5. Stop
+ * 1. Start
+ * 2. If the head is null, display "List is empty".
+ * 3. Else, set the temp to the head.
+ * 4. While the data of the temp is not equal to the data to be deleted,
+ * 		set the temp to the next of the temp.
+ * 5. If the previous of the temp is not null,
+ * 		set the next of the previous of the temp
+ * 		to the next of the temp.
+ * 6. If the next of the temp is not null,
+ * 		set the previous of the next of the temp
+ * 		to the previous of the temp.
+ * 7. If the temp is equal to the head,
+ * 		set the head to the next of the head.
+ * 8. Stop
  * 
  * Algorithm for printing the list
- * 1. Create a node last and set it to null.
- * 2. Print "Traversal in forward direction".
- * 3. While the node is not null, print the data of the node.
- * 4. Set the last to the node.
- * 5. Set the node to the next of the node.
- * 6. Print a new line.
- * 7. Print "Traversal in reverse direction".
- * 8. While the last is not null, print the data of the last.
- * 9. Set the last to the previous of the last.
- * 10. Stop
- * 
- * Algorithm for main
- * 1. Create a doubly linked list.
- * 2. Create a scanner object.
- * 3. Display a menu
- * 4. Read the choice.
- * 5. If the choice is 1, read the data to be inserted.
- * 6. Call the push method of the doubly linked list object and pass the data to be inserted as argument.
- * 7. If the choice is 2, read the data to be deleted.
- * 8. Create a node temp and set it to the head.
- * 9. While the temp is not null, if the data of the temp is equal to the data to be deleted, call the deleteNode method of the doubly linked list object and pass the head and temp as arguments.
- * 10. Set the temp to the next of the temp.
- * 11. If the choice is 3, call the printList method of the doubly linked list object and pass the head as argument.
- * 12. If the choice is 4, stop.
- * 13. If the choice is not 1, 2, 3 or 4, display "Invalid choice".
- * 14. Stop
-*/
+ * 1. Start
+ * 2. If the head is null, display "List is empty".
+ * 3. Else, set the temp to the head.
+ * 4. While the temp is not null, display the data of the temp.
+ * 5. Set the temp to the next of the temp.
+ * 6. Stop
+ */
 
 import java.util.Scanner;
 
 public class DoublyLinkedList {
 	Node head;
-	static class Node {
-		int data;
+
+	class Node {
+		private int data;
 		Node prev;
 		Node next;
-		Node(int d) {
-			data = d;
+
+		Node(int data) {
+			this.data = data;
+			this.prev = null;
+			this.next = null;
 		}
 	}
-	public void push(int new_data) {
-		Node new_node = new Node(new_data);
-		new_node.next = head;
-		new_node.prev = null;
-		if (head != null)
-			head.prev = new_node;
-		head = new_node;
+
+	public void insert(int data) {
+		Node new_node = new Node(data);
+		if (head == null)
+			head = new_node;
+		else {
+			Node temp = head;
+			while (temp.next != null)
+				temp = temp.next;
+			temp.next = new_node;
+			new_node.prev = temp;
+		}
 	}
-	void deleteNode(Node head_ref, Node del) {
-		if (head == null || del == null)
-			return;
-		if (head == del)
-			head = del.next;
-		if (del.next != null)
-			del.next.prev = del.prev;
-		if (del.prev != null)
-			del.prev.next = del.next;
-		return;
+
+	void delete(int data) {
+		if (head == null)
+			System.out.println("List is empty");
+		else {
+			Node temp = head;
+
+			while (temp.data != data)
+				temp = temp.next;
+
+			if (temp.prev != null)
+				temp.prev.next = temp.next;
+			if (temp.next != null)
+				temp.next.prev = temp.prev;
+			
+			if (temp == head)
+				head = temp.next;
+
+			temp = null;
+		}
 	}
-	void printList(Node node) {
-		Node last = null;
-		System.out.println("Traversal in forward Direction");
-		while (node != null) {
-			System.out.print(node.data + " ");
-			last = node;
-			node = node.next;
+
+	void display() {
+		if (head == null)
+			System.out.println("List is empty");
+		else {
+			System.out.print("List: ");
+			Node temp = head;
+			while (temp != null) {
+				System.out.print(temp.data + " ");
+				temp = temp.next;
+			}
 		}
 		System.out.println();
-		System.out.println("Traversal in reverse direction");
-		while (last != null) {
-			System.out.print(last.data + " ");
-			last = last.prev;
-		}
 	}
+
 	public static void main(String[] args) {
 		DoublyLinkedList dll = new DoublyLinkedList();
 		Scanner sc = new Scanner(System.in);
 
-		while(true) {
-			System.out.println("1. Insert");
-			System.out.println("2. Delete");
-			System.out.println("3. Display");
-			System.out.println("4. Exit");
+		while (true) {
+			System.out.println("\n1. Insert\n2. Delete");
+			System.out.println("3. Display\n4. Exit");
 			System.out.print("Enter your choice:");
 			int choice = sc.nextInt();
 			System.out.println();
-			switch(choice) {
-			case 1:
-				System.out.println("Enter the element to be inserted:");
-				int element = sc.nextInt();
-				dll.push(element);
-				dll.printList(dll.head);
-				break;
-			case 2:
-				System.out.println("Enter the element to be deleted:");
-				int del = sc.nextInt();
-				dll.deleteNode(dll.head, dll.head.next);
-				dll.printList(dll.head);
-				break;
-			case 3:
-				dll.printList(dll.head);
-				break;
-			case 4:
-				System.exit(0);
-			default:
-				System.out.println("Invalid choice");
+			switch (choice) {
+				case 1:
+					System.out.print("Enter the element to be inserted: ");
+					int element = sc.nextInt();
+					dll.insert(element);
+					dll.display();
+					break;
+				case 2:
+					System.out.print("Enter an element to be deleted: ");
+					int element1 = sc.nextInt();
+					dll.delete(element1);
+					dll.display();
+					break;
+				case 3:
+					dll.display();
+					break;
+				case 4:
+					System.out.println("Exiting...");
+					System.exit(0);
+				default:
+					System.out.println("Invalid choice");
 			}
 		}
 	}
