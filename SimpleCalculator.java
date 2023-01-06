@@ -118,28 +118,28 @@ public class SimpleCalculator extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent evt) {
-        String command = evt.getActionCommand();
-        if ('0' <= command.charAt(0) && command.charAt(0) <= '9'
-                || command.equals(".")) {
-            if (startOfNumber == true)
-                display.setText(command);
-            else
-                display.setText(display.getText() + command);
-            startOfNumber = false;
-        } else {
-            if (startOfNumber) {
-                if (command.equals("-")) {
-                    display.setText(command);
-                    startOfNumber = false;
-                } else
-                    operator = command;
-            } else {
-                double x = Double.parseDouble(display.getText());
-                calculate(x);
-                operator = command;
-                startOfNumber = true;
-            }
-        }
+		String command = evt.getActionCommand();
+		if ('0' <= command.charAt(0) && command.charAt(0) <= '9'
+				|| command.equals(".")) {
+			if (startOfNumber == true)
+				display.setText(command);
+			else
+				display.setText(display.getText() + command);
+			startOfNumber = false;
+		} else {
+			if (startOfNumber) {
+				if (command.equals("-")) {
+					display.setText(command);
+					startOfNumber = false;
+				} else
+					operator = command;
+			} else {
+				double x = Double.parseDouble(display.getText());
+				calculate(x);
+				operator = command;
+				startOfNumber = true;
+			}
+		}
     }
 
     private void calculate(double n) {
